@@ -1,0 +1,41 @@
+{    //eslint(약속된 코드의 규칙을 검사) 셋팅 법 폴더 만들고 
+    "parserOptions": { // 코드가 작성하는 환경
+      "ecmaVersion": 12,  
+      "sourceType": "module",
+      "ecmaFeatures": {
+        "jsx": true
+      }
+    },
+    "plugins": ["react", "import", "node", "promise", "standard", "react-hooks", "prettier"], // 프리티어 추가
+    "settings": { // 리액트 무조건 사용
+      "react": {
+        "createClass": "createReactClass",
+        "pragma": "React",
+        "version": "detect"
+      }
+    },
+    "env": { // 우리가 작성할 코드가 어떤 환경에서 돌아가니?
+      "browser": true, // 브라우저 최상위 객체 window
+      "node": true //우리가 작성할 코드들이 100% 브라우저에서 돌아가면 없어도 상관 없지만 webpack babel를 위해, 노드의 최상위 객체 global
+    },
+    "extends": [ // 기본룰 설정하는 것 - 현재가 기본 셋팅
+      "eslint:recommended", 
+      "plugin:react/recommended",
+      "plugin:prettier/recommended" // 프리티어 기본 룰
+    ],
+    "rules": { // 우리가 사용할 룰
+      "react-hooks/rules-of-hooks": "error",
+      "react-hooks/exhaustive-deps": "warn",
+      "no-console": "warn", // 우리 프로젝트에서 콘솔로그 안씀 에러로 바꾸면 배포 불가능 까지 설정 가능
+      "react/react-in-jsx-scope": "off",
+      "react/prop-types": "off",
+      "prettier/prettier": "error"// 프리티어 룰 검사
+    }
+}
+
+//parser: eslint의 입맞에 맞게 코드를 읽보 변환해준다.
+//parerOptions:읽어올 코드에 대한 정보
+//plugins: 기본 규칙외에 부가적인 규칙
+//env: 개발할 코드의 환경
+//extends: 베이스가 되는 룰
+//rules: 유저가 정의한 룰

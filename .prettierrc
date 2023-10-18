@@ -1,0 +1,17 @@
+// prettier 코드를 이쁘게 포매팅
+// eslint 함꼐 사용하면 규칙에 맞게 코드를 변경해주며 이쁘게 포멧팅 해줍니다.
+
+// 불필요한 파일들 lint,prettier 제외하기
+// .eslintignore
+// .prettierignore
+
+{
+  "useTabs": false,
+  "printWidth": 80,
+  "tabWidth": 2,
+  "singleQuote": true,
+  "trailingComma": "all",
+  "endOfLine": "lf",
+  "semi": false,
+  "arrowParens": "always"
+}
