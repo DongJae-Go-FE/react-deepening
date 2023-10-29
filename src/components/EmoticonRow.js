@@ -1,13 +1,15 @@
+import Styled from './styled'
+
 function EmoticonRow({ rank, title, subTitle, imgUrl }) {
   return (
-    <li>
+    <Styled>
       <div>{rank}</div>
       <div>
         <span>{title}</span>
         <span>{subTitle}</span>
       </div>
       <img src={imgUrl} />
-    </li>
+    </Styled>
   )
 }
 

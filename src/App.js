@@ -1,8 +1,9 @@
 //함수형
 import { useState, useEffect } from 'react'
 import EmoticonRow from './components/EmoticonRow'
+import Input from './components/Input/Input'
 
-import { data } from './data'
+import { data } from './data/data'
 
 function App() {
   const [colorState, setColorState] = useState(() =>
@@ -22,7 +23,7 @@ function App() {
     keyword === ''
       ? data
       : data.filter((emoticon) => {
-          return emoticon.title.toLowerCase().includes(keyword.toLowerCase());
+          return emoticon.title.toLowerCase().includes(keyword.toLowerCase())
         })
 
   return (
@@ -38,17 +39,21 @@ function App() {
           <img src="https://cdn2.iconfinder.com/data/icons/weather-color-2/500/weather-01-64.png" />
         )}
       </div>
-
-      <input value={keyword} onChange={(e) => setKeyword(e.target.value)} />
+      <Input
+        type="text"
+        value={keyword}
+        onChange={(e) => setKeyword(e.target.value)}
+        placeholder="검색어를 입력해주세요"
+      />
       <ul>
-        {list.map((a, i) => {
+        {list.map((search, i) => {
           return (
             <EmoticonRow
-              key={a.title}
+              key={search.title}
               rank={i + 1}
-              title={a.title}
-              subTitle={a.artist}
-              imgUrl={a.titleImageUrl}
+              title={search.title}
+              subTitle={search.artist}
+              imgUrl={search.titleImageUrl}
             />
           )
         })}
