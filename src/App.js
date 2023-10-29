@@ -1,10 +1,30 @@
 //함수형
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import EmoticonRow from './components/EmoticonRow'
 
+import { data } from './data'
+
 function App() {
-  const [colorState, setColorState] = useState('white')
+  const [colorState, setColorState] = useState(() =>
+    localStorage.getItem('themeMode'),
+  )
+  //콜백함수로 실행을 하면 리랜더링이 되더라도 한번만 실행 >> 지연 초기화
+
+  const [keyword, setKeyword] = useState('')
+
   const darkMode = colorState === 'dark'
+
+  useEffect(() => {
+    localStorage.setItem('themeMode', colorState)
+  }, [colorState])
+
+  const list =
+    keyword === ''
+      ? data
+      : data.filter((emoticon) => {
+          return emoticon.title.toLowerCase().includes(keyword.toLowerCase());
+        })
+
   return (
     <div style={darkMode ? darkModeStyle : whiteModeStyle}>
       <div
@@ -18,7 +38,21 @@ function App() {
           <img src="https://cdn2.iconfinder.com/data/icons/weather-color-2/500/weather-01-64.png" />
         )}
       </div>
-      <EmoticonRow rank={1} title="제목" subTitle="소제목" imgUrl='https://item.kakaocdn.net/do/f815c741c074c7f3bf30655773e16502617ea012db208c18f6e83b1a90a7baa7'  />
+
+      <input value={keyword} onChange={(e) => setKeyword(e.target.value)} />
+      <ul>
+        {list.map((a, i) => {
+          return (
+            <EmoticonRow
+              key={a.title}
+              rank={i + 1}
+              title={a.title}
+              subTitle={a.artist}
+              imgUrl={a.titleImageUrl}
+            />
+          )
+        })}
+      </ul>
     </div>
   )
 }
