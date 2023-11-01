@@ -1,7 +1,7 @@
 const path = require('path')
 // 노드 js 경로
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-//index.html 자동 빌드를 위한 플러그인 
+//index.html 자동 빌드를 위한 플러그인
 
 module.exports = {
   entry: path.resolve(__dirname, './src'), // 시작점 설정,  절대 경로로 __dirname 웹팩 콘피그 기준으로 경로 만들어줌
@@ -9,7 +9,7 @@ module.exports = {
     // 빌드한 결과물을 어디에 생성할 것 인가
     filename: 'bundle.[hash].js', // hash 값 추가
     path: path.resolve(__dirname, './dist'), //dist라는 폴더로 뱉어줌
-    publicPath:'/',
+    publicPath: '/',
   },
   module: {
     rules: [
@@ -23,19 +23,19 @@ module.exports = {
   resolve: {
     extensions: ['.js'], //
   },
-  plugins:[
+  plugins: [
     new HtmlWebpackPlugin({
-      template:path.resolve(__dirname, 'public/index.html'),
+      template: path.resolve(__dirname, 'public/index.html'),
       filename: 'index.html',
-    })
+    }),
     //자동 index.html을 dist 폴더를 배포
     //이러면 빌드 결과물을 쫒을 필요가 없다.
-  ], 
+  ],
   devServer: {
     //실제로 dev 서버 사용
-  open: true,
-  historyApiFallback: true,
-}
+    open: true,
+    historyApiFallback: true,
+  },
 } // 노드 js가 기본으로 채택한 es5문법으로 번들링이 필요 없다.
 // 보통 설정 파일들을 번들링 할 필요가 있나? 없다.
 
@@ -43,7 +43,6 @@ module.exports = {
 
 //필요한 모듈
 //노션 참고
-
 
 //webpack.config.js
 //entry: 빌드의 시작점

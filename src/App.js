@@ -1,9 +1,9 @@
 //함수형
 import { useState, useEffect } from 'react'
-import EmoticonRow from './components/EmoticonRow'
 import Input from './components/Input/Input'
-
-import { data } from './data/data'
+import EmoticonList from './components/home/EmoticonList'
+import Skeleton from './components/shared/Skeleton'
+import useEmoticons from './components/home/hooks/useEmoticons'
 
 function App() {
   const [colorState, setColorState] = useState(() =>
@@ -13,16 +13,21 @@ function App() {
 
   const [keyword, setKeyword] = useState('')
 
+  //리액트 쿼리 쓰는 법
+  const { data: emoticons, isLoading } = useEmoticons()
+
   const darkMode = colorState === 'dark'
 
   useEffect(() => {
     localStorage.setItem('themeMode', colorState)
   }, [colorState])
+  //디팬더시 사이드 이펙트 감지
+  //최초의 한번 무조건 호출한다는 거 잊지마
 
   const list =
     keyword === ''
-      ? data
-      : data.filter((emoticon) => {
+      ? emoticons
+      : emoticons.filter((emoticon) => {
           return emoticon.title.toLowerCase().includes(keyword.toLowerCase())
         })
 
@@ -45,19 +50,18 @@ function App() {
         onChange={(e) => setKeyword(e.target.value)}
         placeholder="검색어를 입력해주세요"
       />
-      <ul>
-        {list.map((search, i) => {
-          return (
-            <EmoticonRow
-              key={search.title}
-              rank={i + 1}
-              title={search.title}
-              subTitle={search.artist}
-              imgUrl={search.titleImageUrl}
-            />
-          )
-        })}
-      </ul>
+      {isLoading ? (
+        [
+          ...new Array(10).map((_, idx) => (
+            <Skeleton width="100%" height={121} key={idx} />
+          )),
+        ]
+      ) : (
+        <EmoticonList emoticons={list} />
+      )}
+      <div style={{ width: '100%', height: 100, backgroundColor: 'pink' }}>
+        광고배너
+      </div>
     </div>
   )
 }
